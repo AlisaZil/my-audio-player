@@ -90,3 +90,7 @@ html{
     height: 15px;
     border-radius: 50%;
 }
+
+.audio-list{
+    width: 100%;
+}

@@ -1,7 +1,10 @@
-playIcon = document.querySelector('.play');
-audioProgressBar = document.querySelector('.audio-progress-bar');
-song = new Audio('./assets/audio/Call Me.mp3');
-stopInterval = false;
+//audio-player-controls
+
+let playIcon = document.querySelector('.play');
+let audioProgressBar = document.querySelector('.audio-progress-bar');
+let song = new Audio('./assets/audio/God Shattering Star.mp3');
+let stopInterval = false;
+
 
 song.addEventListener("loadedmetadata", () => {
     audioProgressBar.max = song.duration;
@@ -53,8 +56,56 @@ song.addEventListener('play', async () => {
 
 function calculatePlayedProgressLine() {
 
-    valPres = Math.round((audioProgressBar.value / audioProgressBar.max) * 100);
+    let valPres = Math.round((audioProgressBar.value / audioProgressBar.max) * 100);
     valPres < 10 ? valPres = valPres + 1 : valPres;
     audioProgressBar.style.background = `linear-gradient(90deg,  #6c8685 ${valPres}%, #a3bfbf ${valPres}%)`;
   
-  }
+}
+
+//audio list
+let songsData;
+const audioList = document.querySelector('.audio-list');
+
+function buildSongsList(song){
+
+    const songItem = document.createElement("div");
+    songItem.classList.add("song-item");
+
+    const songDes = document.createElement("div");
+    songDes.classList.add("song-description");
+
+    const songName = document.createElement("p");
+    songName.classList.add("song-name");
+    songName.innerText = song.name;
+
+    const songSinger = document.createElement("p");
+    songSinger.classList.add("song-singer");
+    songSinger.innerText = song.singer;
+
+    const songDuration = document.createElement("p");
+    songDuration.classList.add("song-duration");
+    songDuration.innerText = '2:45';
+
+    songDes.appendChild(songName);
+    songDes.appendChild(songSinger);
+
+    songItem.appendChild(songDes);
+    songItem.appendChild(songDuration);
+
+    audioList.appendChild(songItem);
+
+
+}
+
+fetch('./audio.json')
+    .then((response) => response.json())
+    .then((json) => {
+        songsData = json;
+        songsData.forEach(element => {
+            buildSongsList(element);
+        });
+        
+    });
+
+
+

@@ -2,41 +2,49 @@
     {
         "name":"lucky Twice - nightcore",
         "singer":"Lucky",
-        "audioSrc":"./assets/audio/_I'm so lucky lucky_  Lucky twice - lucky (nightcore)  Sub. español.mp3"
+        "audioSrc":"./assets/audio/_I'm so lucky lucky_  Lucky twice - lucky (nightcore)  Sub. español.mp3",
+        "pictureSrc":"./assets/pictures/lucky-twice.jpeg"
     },
     {
         "name":"Call Me",
         "singer":"Blondie",
-        "audioSrc":"./assets/audio/Call Me.mp3"
+        "audioSrc":"./assets/audio/Call Me.mp3",
+        "pictureSrc":"./assets/pictures/call-me.webp"
     },
     {
         "name":"Deutschland",
         "singer":"Rammstein",
-        "audioSrc":"./assets/audio/Deutschland - Rammstein (Official Audio).mp3"
+        "audioSrc":"./assets/audio/Deutschland - Rammstein (Official Audio).mp3",
+        "pictureSrc":"./assets/pictures/deutsclsand.webp"
     },
     {
         "name":"Hypa Hypa",
         "singer":"Electric Callboy",
-        "audioSrc":"./assets/audio/Electric Callboy - Hypa Hypa (OFFICIAL VIDEO).mp3"
+        "audioSrc":"./assets/audio/Electric Callboy - Hypa Hypa (OFFICIAL VIDEO).mp3",
+        "pictureSrc":"./assets/pictures/hypa-hypa.webp"
     },
     {
         "name":"God Shattering Star",
         "singer":"GOD",
-        "audioSrc":"./assets/audio/God Shattering Star.mp3"
+        "audioSrc":"./assets/audio/God Shattering Star.mp3",
+        "pictureSrc":"./assets/pictures/god-shattering-star.webp"
     },
     {
         "name":"Me Gustas Tu",
         "singer":"Manu Chao",
-        "audioSrc":"./assets/audio/Me Gustas Tu.mp3"
+        "audioSrc":"./assets/audio/Me Gustas Tu.mp3",
+        "pictureSrc":"./assets/pictures/Me-Gustas-Tu.webp"
     },
     {
         "name":"Zick Zack",
         "singer":"Rammstein",
-        "audioSrc":"./assets/audio/Rammstein - Zick Zack (Official Video).mp3"
+        "audioSrc":"./assets/audio/Rammstein - Zick Zack (Official Video).mp3",
+        "pictureSrc":"./assets/pictures/Me-Gustas-Tu.webp"
     },
     {
         "name":"Prince Harry",
         "singer":"Soho Dolls",
-        "audioSrc":"./assets/audio/Soho Dolls Prince Harry.mp3"
+        "audioSrc":"./assets/audio/Soho Dolls Prince Harry.mp3",
+        "pictureSrc":"./assets/pictures/prince-harry.webp"
     }
 ]
