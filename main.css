@@ -43,6 +43,7 @@ html{
     height: 60%;
     display: flex;
     align-items: center;
+    cursor: pointer;
     justify-content: space-around;
 }
 
@@ -55,7 +56,7 @@ html{
 .play{
     height: 55%;
 }
-@keyframes bigger {
+/* @keyframes bigger {
     0%{
         height: 30%;
     }
@@ -65,9 +66,26 @@ html{
     100%{
         height: 30%;
     }
-}
+} */
 
 /* .play:active{
     animation-name: bigger;
     animation-duration: 0.3s;
 } */
+
+.audio-progress-bar{
+    width: 150%;
+    -webkit-appearance: none;
+    height: 7%;
+    border-radius: 2vw;
+    background-color: #a3bfbf;
+    cursor: pointer;
+    outline: none;
+}
+.audio-progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #ffffff;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}

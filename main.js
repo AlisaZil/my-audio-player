@@ -41,10 +41,19 @@ song.addEventListener('play', async () => {
       progressAnimation = setInterval(function () {
   
         audioProgressBar.value = song.currentTime;
-  
+        calculateProgressLine();
         if (stopInterval) {
           clearInterval(progressAnimation);
         }
       });
 
-  })
+  });
+
+
+function calculateProgressLine() {
+
+    valPres = Math.round((audioProgressBar.value / audioProgressBar.max) * 100);
+    valPres < 10 ? valPres = valPres + 1 : valPres;
+    audioProgressBar.style.background = `linear-gradient(90deg,  #6c8685 ${valPres}%, #a3bfbf ${valPres}%)`;
+  
+  }
