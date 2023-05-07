@@ -1,0 +1,15 @@
+html{
+    background-color: rgb(161, 187, 187);
+}
+
+.conteinar{
+    width: 75vw;
+    height: 90vh;
+    background-color: rgb(255, 255, 255);
+    border-radius: 2vw;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
