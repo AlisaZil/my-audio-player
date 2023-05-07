@@ -34,11 +34,40 @@ html{
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.icons{
+    width: 100%;
+    height: 60%;
+    display: flex;
+    align-items: center;
     justify-content: space-around;
 }
-.audio-controls img:not(.play){
-    height: 25%;
+
+.audio-controls .icons img:not(.play){
+    height: 50%;
+}
+.backward{
+    transform: rotate(180deg);
 }
 .play{
-    height: 30%;
+    height: 55%;
 }
+@keyframes bigger {
+    0%{
+        height: 30%;
+    }
+    50%{
+        height: 33%;
+    }
+    100%{
+        height: 30%;
+    }
+}
+
+/* .play:active{
+    animation-name: bigger;
+    animation-duration: 0.3s;
+} */
