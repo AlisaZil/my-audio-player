@@ -66,10 +66,14 @@ function calculatePlayedProgressLine() {
 let songsData;
 const audioList = document.querySelector('.audio-list');
 
-function buildSongsList(song){
+function buildSongsList(song, id){
 
     const songItem = document.createElement("div");
     songItem.classList.add("song-item");
+
+    const songCounter = document.createElement('p');
+    songCounter.classList.add('song-counter');
+    songCounter.innerText = id;
 
     const songDes = document.createElement("div");
     songDes.classList.add("song-description");
@@ -89,6 +93,7 @@ function buildSongsList(song){
     songDes.appendChild(songName);
     songDes.appendChild(songSinger);
 
+    songItem.appendChild(songCounter);
     songItem.appendChild(songDes);
     songItem.appendChild(songDuration);
 
@@ -101,8 +106,8 @@ fetch('./audio.json')
     .then((response) => response.json())
     .then((json) => {
         songsData = json;
-        songsData.forEach(element => {
-            buildSongsList(element);
+        songsData.forEach((element, counter) => {
+            buildSongsList(element, (counter +1));
         });
         
     });
