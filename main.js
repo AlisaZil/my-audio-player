@@ -6,6 +6,7 @@ stopInterval = false;
 song.addEventListener("loadedmetadata", () => {
     audioProgressBar.max = song.duration;
     audioProgressBar.value = song.currentTime;
+    calculatePlayedProgressLine();
 })
 
 playIcon.addEventListener('click', () =>{
@@ -41,7 +42,7 @@ song.addEventListener('play', async () => {
       progressAnimation = setInterval(function () {
   
         audioProgressBar.value = song.currentTime;
-        calculateProgressLine();
+        calculatePlayedProgressLine();
         if (stopInterval) {
           clearInterval(progressAnimation);
         }
@@ -50,7 +51,7 @@ song.addEventListener('play', async () => {
   });
 
 
-function calculateProgressLine() {
+function calculatePlayedProgressLine() {
 
     valPres = Math.round((audioProgressBar.value / audioProgressBar.max) * 100);
     valPres < 10 ? valPres = valPres + 1 : valPres;

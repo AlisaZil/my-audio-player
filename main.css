@@ -81,6 +81,7 @@ html{
     background-color: #a3bfbf;
     cursor: pointer;
     outline: none;
+    transition: 0.3s;
 }
 .audio-progress-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
