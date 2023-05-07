@@ -23,4 +23,22 @@ html{
     background-color: rgb(196 223 223);
     border-bottom-left-radius: 2vw;
     border-bottom-right-radius: 2vw;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.audio-controls{
+    width: 35%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.audio-controls img:not(.play){
+    height: 25%;
+}
+.play{
+    height: 30%;
 }
