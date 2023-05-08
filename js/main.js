@@ -30,6 +30,7 @@ song.addEventListener("loadedmetadata", () => {
 
 audioProgressBar.addEventListener('input', (event) => {
     song.currentTime = event.target.value;
+    calculatePlayedProgressLine();
 });
 
 audioProgressBar.addEventListener('mousedown', () => {
@@ -37,8 +38,7 @@ audioProgressBar.addEventListener('mousedown', () => {
 });
 
 audioProgressBar.addEventListener('mouseup', () => {
-    if (
-        playIcon.src.includes("pause-solid")) {
+    if (playIcon.src.includes("pause-solid")) {
       song.play();
     }
 });
