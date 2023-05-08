@@ -82,32 +82,49 @@ html{
     animation-name: bigger;
     animation-duration: 0.3s;
 } */
-
 .audio-progress-bar{
     width: 150%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-bar{
+    width: 100%;
     -webkit-appearance: none;
-    height: 7%;
+    height: 20%;
     border-radius: 2vw;
     background-color: #a3bfbf;
     cursor: pointer;
     outline: none;
     transition: 0.3s;
 }
-.audio-progress-bar::-webkit-slider-thumb {
+.progress-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     background-color: #ffffff;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
 }
-
+.audio-duration{
+    color: white;
+    font-size: 19px;
+    margin-left: 1vw;
+    margin-right: -5vw;
+}
 .audio-list{
     width: 100%;
 }
 .song-item{
+    cursor: pointer;
     display: flex;
     /* justify-content: space-between */
     align-items: center;
+}
+.song-item:hover{
+    transition: 0.2s;
+    background-color: #a3bfbf;
 }
 .song-description{
     margin-left: 3vw;

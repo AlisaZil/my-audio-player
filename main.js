@@ -1,7 +1,7 @@
 //audio-player-controls
 
 let playIcon = document.querySelector('.play');
-let audioProgressBar = document.querySelector('.audio-progress-bar');
+let audioProgressBar = document.querySelector('.progress-bar');
 let song = new Audio('./assets/audio/God Shattering Star.mp3');
 let stopInterval = false;
 
@@ -10,7 +10,26 @@ song.addEventListener("loadedmetadata", () => {
     audioProgressBar.max = song.duration;
     audioProgressBar.value = song.currentTime;
     calculatePlayedProgressLine();
-})
+    calcTimeLeft();
+
+});
+
+function calcTimeLeft(){
+    let currTimeInSecondes = Math.round(song.currentTime);
+    let minutes = Math.floor(currTimeInSecondes/60);
+    let secondes = currTimeInSecondes - (minutes*60);
+    const audioDuration = document.querySelector('.audio-duration');
+    // currTimeInSecondes%60 == 0? minutes = minutes +1:console.log("lol")
+    audioDuration.innerText = `${minutes}:${( secondes< 10)? "0"+secondes:secondes}`;
+    // console.log(Math.round(currTimeInSecondes/60)*60);
+    // console.log(Math.round(currTimeInSecondes/60)*60)
+    // console.log(currTimeInSecondes - holder)
+    // counter = currTimeInSecondes - currTimeInSecondes +1;
+    // // console.log(song.duration)
+    // console.log(counter)
+    // audioDuratuon.innerText = `${currTimeInSecondes >= 60 ? Math.round(currTimeInSecondes/60) : '0'}:${currTimeInSecondes >= 10 ? currTimeInSecondes : '0'+ currTimeInSecondes}`;
+    // currTimeInSecondes >= 10 ? audioDuratuon.innerText = `0:${currTimeInSecondes}` : audioDuratuon.innerText = `0:0${currTimeInSecondes}`;
+}
 
 playIcon.addEventListener('click', () =>{
 
@@ -46,6 +65,7 @@ song.addEventListener('play', async () => {
   
         audioProgressBar.value = song.currentTime;
         calculatePlayedProgressLine();
+        calcTimeLeft();
         if (stopInterval) {
           clearInterval(progressAnimation);
         }
@@ -66,7 +86,8 @@ function calculatePlayedProgressLine() {
 let songsData;
 const audioList = document.querySelector('.audio-list');
 
-function buildSongsList(song, id){
+
+function buildSongsList(songObj, id){
 
     const songItem = document.createElement("div");
     songItem.classList.add("song-item");
@@ -80,15 +101,15 @@ function buildSongsList(song, id){
 
     const songName = document.createElement("p");
     songName.classList.add("song-name");
-    songName.innerText = song.name;
+    songName.innerText = songObj.name;
 
     const songSinger = document.createElement("p");
     songSinger.classList.add("song-singer");
-    songSinger.innerText = song.singer;
+    songSinger.innerText = songObj.singer;
 
     const songDuration = document.createElement("p");
     songDuration.classList.add("song-duration");
-    songDuration.innerText = '2:45';
+    songDuration.innerText = songObj.duration
 
     songDes.appendChild(songName);
     songDes.appendChild(songSinger);
@@ -99,6 +120,9 @@ function buildSongsList(song, id){
 
     audioList.appendChild(songItem);
 
+    songItem.addEventListener('click', (event) =>{
+        changeAudio(songObj);
+    })
 
 }
 
@@ -112,5 +136,19 @@ fetch('./audio.json')
         
     });
 
+function changeAudio(songObj){
+
+    song.src = songObj.audioSrc;
+    audioProgressBar.value = song.currentTime;
+    audioProgressBar.max = song.duration;
+    song.play();
+
+    if(playIcon.src.includes('play-solid')){
+        playIcon.src = playIcon.src.replace("play-solid","pause-solid");
+        song.play();
+        stopInterval = false;
+    }
+}
+    
 
 
