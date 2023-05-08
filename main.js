@@ -19,16 +19,7 @@ function calcTimeLeft(){
     let minutes = Math.floor(currTimeInSecondes/60);
     let secondes = currTimeInSecondes - (minutes*60);
     const audioDuration = document.querySelector('.audio-duration');
-    // currTimeInSecondes%60 == 0? minutes = minutes +1:console.log("lol")
     audioDuration.innerText = `${minutes}:${( secondes< 10)? "0"+secondes:secondes}`;
-    // console.log(Math.round(currTimeInSecondes/60)*60);
-    // console.log(Math.round(currTimeInSecondes/60)*60)
-    // console.log(currTimeInSecondes - holder)
-    // counter = currTimeInSecondes - currTimeInSecondes +1;
-    // // console.log(song.duration)
-    // console.log(counter)
-    // audioDuratuon.innerText = `${currTimeInSecondes >= 60 ? Math.round(currTimeInSecondes/60) : '0'}:${currTimeInSecondes >= 10 ? currTimeInSecondes : '0'+ currTimeInSecondes}`;
-    // currTimeInSecondes >= 10 ? audioDuratuon.innerText = `0:${currTimeInSecondes}` : audioDuratuon.innerText = `0:0${currTimeInSecondes}`;
 }
 
 playIcon.addEventListener('click', () =>{
