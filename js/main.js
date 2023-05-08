@@ -168,15 +168,45 @@ function changeAudio(songObj){
     currSong = songObj.id - 1;
 }
 
+const repetIcon = document.querySelector('.repeat');
+let isReapet = false;
+
+repetIcon.addEventListener('click', () =>{
+    if(!isReapet){
+        repetIcon.style.backgroundColor = "white";
+        isReapet = true;
+    }
+    else{
+        repetIcon.style.backgroundColor = "transparent";
+        isReapet = false;
+    }
+    shuffleSongOrder();
+});
+
+function shuffleSongOrder(){
+
+    if(isReapet){
+        songsData = songsData.sort(() => Math.random() - 0.5);
+    }else{
+        songsData.sort((a, b) => (a.id > b.id) ? 1: -1)
+    }
+
+}
+
 song.onended = function() {
 
-    
     currSong = currSong + 1;
+
     if(songsData[currSong] == undefined){
         currSong = 0;
     }
+
     song.src = songsData[currSong].audioSrc;
+    console.log(songsData[currSong].audioSrc)
     playSongAfterChange();
     changeAlbumData(songsData[currSong]);
     console.log(currSong + " song onended")
 };
+
+
+// console.log(shuffledArray);
