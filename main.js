@@ -70,7 +70,6 @@ function calculatePlayedProgressLine() {
     let valPres = Math.round((audioProgressBar.value / audioProgressBar.max) * 100);
     valPres < 10 ? valPres = valPres + 1 : valPres;
     audioProgressBar.style.background = `linear-gradient(90deg,  #6c8685 ${valPres}%, #a3bfbf ${valPres}%)`;
-  
 }
 
 //audio list
@@ -111,7 +110,7 @@ function buildSongsList(songObj, id){
 
     audioList.appendChild(songItem);
 
-    songItem.addEventListener('click', (event) =>{
+    songItem.addEventListener('click', () =>{
         changeAudio(songObj);
     })
 
@@ -130,6 +129,8 @@ fetch('./audio.json')
 function changeAudio(songObj){
 
     song.src = songObj.audioSrc;
+    song.alt = songObj.name;
+
     audioProgressBar.value = song.currentTime;
     audioProgressBar.max = song.duration;
     song.play();

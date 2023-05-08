@@ -115,6 +115,8 @@ html{
 }
 .audio-list{
     width: 100%;
+    height: 70%;
+    overflow: scroll;
 }
 .song-item{
     cursor: pointer;
@@ -143,4 +145,9 @@ html{
 }
 .song-name{
     font-family: calibri-bold;
+}
+
+.audio-description{
+    width: 100%;
+    height: 30%;
 }
