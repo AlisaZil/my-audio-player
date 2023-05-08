@@ -1,4 +1,5 @@
-[
+
+export const songsData = [
     {
         "name":"lucky Twice - nightcore",
         "singer":"Lucky",
@@ -55,4 +56,37 @@
         "pictureSrc":"./assets/pictures/prince-harry.png",
         "duration":"3:01"
     }
-]
+];
+
+export const songItemElements = [
+    {
+        "type":"div",
+        "class":"song-item",
+        "fatherElement":"audio-list"
+    },
+    {
+        "type":"p",
+        "class":"song-counter",
+        "fatherElement":"song-item"
+    },
+    {
+        "type":"div",
+        "class":"song-description",
+        "fatherElement":"song-item"
+    },
+    {
+        "type":"p",
+        "class":"song-name",
+        "fatherElement":"song-description"
+    },
+    {
+        "type":"p",
+        "class":"song-singer",
+        "fatherElement":"song-description"
+    },
+    {
+        "type":"p",
+        "class":"song-duration",
+        "fatherElement":"song-item"
+    }
+];

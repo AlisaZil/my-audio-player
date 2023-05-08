@@ -1,39 +1,31 @@
-//audio-player-controls
+import { songsData, songItemElements } from './audioData.js';
 
-let playIcon = document.querySelector('.play');
+const playIcon = document.querySelector('.play');
 let audioProgressBar = document.querySelector('.progress-bar');
-let song = new Audio('./assets/audio/God Shattering Star.mp3');
+
 let stopInterval = false;
 
 
-song.addEventListener("loadedmetadata", () => {
-    audioProgressBar.max = song.duration;
+//first song init
+
+let song = new Audio(songsData[0].audioSrc);
+document.querySelector('.song-singer').innerText = songsData[0].singer;
+document.querySelector('.song-name').innerText = songsData[0].name;
+document.querySelector('.audio-img').src = songsData[0].pictureSrc;
+
+CalculateAlbumDetails(songsData);
+
+//audio progress bar functions
+
+function defineProgressBarValues(){
     audioProgressBar.value = song.currentTime;
-    calculatePlayedProgressLine();
-    calcTimeLeft();
-
-});
-
-function calcTimeLeft(){
-    let currTimeInSecondes = Math.round(song.currentTime);
-    let minutes = Math.floor(currTimeInSecondes/60);
-    let secondes = currTimeInSecondes - (minutes*60);
-    const audioDuration = document.querySelector('.audio-duration');
-    audioDuration.innerText = `${minutes}:${( secondes< 10)? "0"+secondes:secondes}`;
+    audioProgressBar.max = song.duration;
 }
 
-playIcon.addEventListener('click', () =>{
-
-    if(playIcon.src.includes('play-solid')){
-        playIcon.src = playIcon.src.replace("play-solid","pause-solid");
-        song.play();
-        stopInterval = false;
-    }
-    else{
-        song.pause();
-        playIcon.src = playIcon.src.replace('pause-solid','play-solid');
-        stopInterval = true;
-    }
+song.addEventListener("loadedmetadata", () => {
+    defineProgressBarValues();
+    calculatePlayedProgressLine();
+    calcTimeLeftForSong();
 });
 
 audioProgressBar.addEventListener('input', (event) => {
@@ -52,85 +44,92 @@ audioProgressBar.addEventListener('mouseup', () => {
 });
 
 song.addEventListener('play', async () => {
-      progressAnimation = setInterval(function () {
+
+      let progressAnimation = setInterval(function () {
   
         audioProgressBar.value = song.currentTime;
         calculatePlayedProgressLine();
-        calcTimeLeft();
+        calcTimeLeftForSong();
         if (stopInterval) {
           clearInterval(progressAnimation);
         }
       });
 
-  });
+});
 
+function calcTimeLeftForSong(){
+
+    let minutes = Math.floor(Math.round(song.currentTime)/60);
+    let secondes = Math.round(song.currentTime) - (minutes*60);
+    
+    const audioDuration = document.querySelector('.audio-duration');
+
+    audioDuration.innerText = `${minutes}:${( secondes< 10)? "0"+secondes:secondes}`;
+
+}
 
 function calculatePlayedProgressLine() {
-
-    let valPres = Math.round((audioProgressBar.value / audioProgressBar.max) * 100);
+    let valPres = Math.floor((audioProgressBar.value / audioProgressBar.max) * 100);
     valPres < 10 ? valPres = valPres + 1 : valPres;
     audioProgressBar.style.background = `linear-gradient(90deg,  #6c8685 ${valPres}%, #a3bfbf ${valPres}%)`;
 }
 
-//audio list
-let songsData;
-const audioList = document.querySelector('.audio-list');
+//audio player controls
 
+playIcon.addEventListener('click', () =>{
+
+    if(playIcon.src.includes('play-solid')){
+        playIcon.src = playIcon.src.replace("play-solid","pause-solid");
+        song.play();
+        stopInterval = false;
+    }
+    else{
+        playIcon.src = playIcon.src.replace('pause-solid','play-solid');
+        song.pause();
+        stopInterval = true;
+    }
+
+});
+
+//audio list
 
 function buildSongsList(songObj, id){
 
-    const songItem = document.createElement("div");
-    songItem.classList.add("song-item");
+    songItemElements.forEach((element) => {
 
-    const songCounter = document.createElement('p');
-    songCounter.classList.add('song-counter');
-    songCounter.innerText = id;
+        const currentElement = document.createElement(element.type);
+        currentElement.classList.add(element.class);
+        currentElement.classList.add("number-" + id);
 
-    const songDes = document.createElement("div");
-    songDes.classList.add("song-description");
+        if(element.type == 'p'){
+            currentElement.innerText = songObj[element.class.replace("song-", "")];
+        }
 
-    const songName = document.createElement("p");
-    songName.classList.add("song-name");
-    songName.innerText = songObj.name;
+        if( element.class == "song-counter"){
+            currentElement.innerText = id + 1;
+        }
 
-    const songSinger = document.createElement("p");
-    songSinger.classList.add("song-singer");
-    songSinger.innerText = songObj.singer;
+        if(element.fatherElement == "audio-list"){
+            document.querySelector('.audio-list').appendChild(currentElement);
+        }
 
-    const songDuration = document.createElement("p");
-    songDuration.classList.add("song-duration");
-    songDuration.innerText = songObj.duration
-
-    songDes.appendChild(songName);
-    songDes.appendChild(songSinger);
-
-    songItem.appendChild(songCounter);
-    songItem.appendChild(songDes);
-    songItem.appendChild(songDuration);
-
-    audioList.appendChild(songItem);
-
-    songItem.addEventListener('click', () =>{
-        changeAudio(songObj);
-        changeAlbumData(songObj);
-    })
-
+        else{
+               document.querySelector("."+element.fatherElement +".number-"+id).appendChild(currentElement);
+        }
+        if(songObj.class = "song-item"){
+            currentElement.addEventListener('click', () =>{
+                changeAudio(songObj);
+                changeAlbumData(songObj);
+            })
+        }
+        
+    });
 }
 
-fetch('./audio.json')
-    .then((response) => response.json())
-    .then((json) => {
-        songsData = json;
-        songsData.forEach((element, counter) => {
-            buildSongsList(element, (counter +1));
-        });
-        document.querySelector(".audio-img").src = songsData[0].pictureSrc;
-        song.src = songsData[0].audioSrc;
-        document.querySelector(".song-name").innerText = songsData[0].name;
-        document.querySelector(".song-singer").innerText = songsData[0].singer;
-        CalculateAlbumDetails(songsData);
-        
+songsData.forEach((element, counter) => {
+    buildSongsList(element, (counter));
 });
+
 
 function changeAlbumData(songObj){
     document.querySelector(".audio-img").src = songObj.pictureSrc;
@@ -141,9 +140,11 @@ function changeAlbumData(songObj){
 function CalculateAlbumDetails(songsData){
     let songsDuration = 0 ;
     document.querySelector('.songs-amount').innerText = songsData.length + " songs";
+
     songsData.forEach(element => {
         songsDuration = songsDuration + parseInt(element.duration.split(":")[0]) + Math.round(element.duration.split(":")[1]/60);
     });
+
     document.querySelector('.songs-duration').innerText = songsDuration + " min";
 }
 
@@ -151,14 +152,12 @@ function changeAudio(songObj){
 
     song.src = songObj.audioSrc;
     song.alt = songObj.name;
-
-    audioProgressBar.value = song.currentTime;
-    audioProgressBar.max = song.duration;
+    defineProgressBarValues();
+    
     song.play();
 
     if(playIcon.src.includes('play-solid')){
         playIcon.src = playIcon.src.replace("play-solid","pause-solid");
-        song.play();
         stopInterval = false;
     }
 }
