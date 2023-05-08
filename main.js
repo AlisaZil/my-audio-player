@@ -3,8 +3,6 @@
 let playIcon = document.querySelector('.play');
 let audioProgressBar = document.querySelector('.progress-bar');
 let song = new Audio('./assets/audio/God Shattering Star.mp3');
-let audioImg = document.querySelector(".audio-img")
-audioImg.src = './assets/pictures/god-shattering-star.png';
 let stopInterval = false;
 
 
@@ -114,7 +112,7 @@ function buildSongsList(songObj, id){
 
     songItem.addEventListener('click', () =>{
         changeAudio(songObj);
-        changeAlbumImg(songObj);
+        changeAlbumData(songObj);
     })
 
 }
@@ -126,12 +124,27 @@ fetch('./audio.json')
         songsData.forEach((element, counter) => {
             buildSongsList(element, (counter +1));
         });
+        document.querySelector(".audio-img").src = songsData[0].pictureSrc;
+        song.src = songsData[0].audioSrc;
+        document.querySelector(".song-name").innerText = songsData[0].name;
+        document.querySelector(".song-singer").innerText = songsData[0].singer;
+        CalculateAlbumDetails(songsData);
         
 });
 
+function changeAlbumData(songObj){
+    document.querySelector(".audio-img").src = songObj.pictureSrc;
+    document.querySelector(".song-name").innerText = songObj.name;
+    document.querySelector(".song-singer").innerText = songObj.singer;
+}
 
-function changeAlbumImg(songObj){
-   audioImg.src = songObj.pictureSrc;
+function CalculateAlbumDetails(songsData){
+    let songsDuration = 0 ;
+    document.querySelector('.songs-amount').innerText = songsData.length + " songs";
+    songsData.forEach(element => {
+        songsDuration = songsDuration + parseInt(element.duration.split(":")[0]) + Math.round(element.duration.split(":")[1]/60);
+    });
+    document.querySelector('.songs-duration').innerText = songsDuration + " min";
 }
 
 function changeAudio(songObj){
