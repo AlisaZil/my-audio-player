@@ -7,6 +7,7 @@ let stopInterval = false;
 
 
 //first song init
+let currSong = 0;
 
 let song = new Audio(songsData[0].audioSrc);
 document.querySelector('.song-singer').innerText = songsData[0].singer;
@@ -119,7 +120,6 @@ function buildSongsList(songObj){
         if(songObj.class = "song-item"){
             currentElement.addEventListener('click', () =>{
                 changeAudio(songObj);
-                changeAlbumData(songObj);
             })
         }
         
@@ -148,11 +148,7 @@ function CalculateAlbumDetails(songsData){
     document.querySelector('.songs-duration').innerText = songsDuration + " min";
 }
 
-function changeAudio(songObj){
-
-    song.src = songObj.audioSrc;
-    song.alt = songObj.name;
-    defineProgressBarValues();
+function playSongAfterChange(){
     
     song.play();
 
@@ -162,6 +158,25 @@ function changeAudio(songObj){
     }
 }
 
+function changeAudio(songObj){
+
+    song.src = songObj.audioSrc;
+    song.alt = songObj.name;
+    playSongAfterChange();
+    defineProgressBarValues();
+    changeAlbumData(songObj);
+    currSong = songObj.id - 1;
+}
+
 song.onended = function() {
+
     
+    currSong = currSong + 1;
+    if(songsData[currSong] == undefined){
+        currSong = 0;
+    }
+    song.src = songsData[currSong].audioSrc;
+    playSongAfterChange();
+    changeAlbumData(songsData[currSong]);
+    console.log(currSong + " song onended")
 };
