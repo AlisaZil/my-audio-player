@@ -93,20 +93,20 @@ playIcon.addEventListener('click', () =>{
 
 //audio list
 
-function buildSongsList(songObj, id){
+function buildSongsList(songObj){
 
     songItemElements.forEach((element) => {
 
         const currentElement = document.createElement(element.type);
         currentElement.classList.add(element.class);
-        currentElement.classList.add("number-" + id);
+        currentElement.classList.add("number-" + songObj.id);
 
         if(element.type == 'p'){
             currentElement.innerText = songObj[element.class.replace("song-", "")];
         }
 
         if( element.class == "song-counter"){
-            currentElement.innerText = id + 1;
+            currentElement.innerText = songObj.id;
         }
 
         if(element.fatherElement == "audio-list"){
@@ -114,7 +114,7 @@ function buildSongsList(songObj, id){
         }
 
         else{
-               document.querySelector("."+element.fatherElement +".number-"+id).appendChild(currentElement);
+               document.querySelector("."+element.fatherElement +".number-"+songObj.id).appendChild(currentElement);
         }
         if(songObj.class = "song-item"){
             currentElement.addEventListener('click', () =>{
@@ -126,8 +126,8 @@ function buildSongsList(songObj, id){
     });
 }
 
-songsData.forEach((element, counter) => {
-    buildSongsList(element, (counter));
+songsData.forEach((element) => {
+    buildSongsList(element);
 });
 
 
@@ -161,6 +161,7 @@ function changeAudio(songObj){
         stopInterval = false;
     }
 }
+
+song.onended = function() {
     
-
-
+};
