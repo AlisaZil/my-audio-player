@@ -146,8 +146,11 @@ html{
 .song-name{
     font-family: calibri-bold;
 }
-
-.audio-description{
+.album-description{
     width: 100%;
     height: 30%;
+}
+.audio-img{
+    border-radius: 2vw;
+    height: 90%;
 }

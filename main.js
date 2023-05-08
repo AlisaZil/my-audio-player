@@ -3,6 +3,8 @@
 let playIcon = document.querySelector('.play');
 let audioProgressBar = document.querySelector('.progress-bar');
 let song = new Audio('./assets/audio/God Shattering Star.mp3');
+let audioImg = document.querySelector(".audio-img")
+audioImg.src = './assets/pictures/god-shattering-star.png';
 let stopInterval = false;
 
 
@@ -112,6 +114,7 @@ function buildSongsList(songObj, id){
 
     songItem.addEventListener('click', () =>{
         changeAudio(songObj);
+        changeAlbumImg(songObj);
     })
 
 }
@@ -124,7 +127,12 @@ fetch('./audio.json')
             buildSongsList(element, (counter +1));
         });
         
-    });
+});
+
+
+function changeAlbumImg(songObj){
+   audioImg.src = songObj.pictureSrc;
+}
 
 function changeAudio(songObj){
 
