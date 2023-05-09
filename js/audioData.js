@@ -141,7 +141,8 @@ export const songsData = [
         "name":"Swan Lake",
         "singer":"Tchaikovsky",
         "audioSrc":"./assets/audio/Tchaikovsky - Swan Lake (Swan Theme).mp3",
-        "pictureSrc":"2:59"
+        "pictureSrc":"./assets/pictures/Tchaikovsky-Swan Lake.png",
+        "duration":"2:59"
     }
 ];
 
