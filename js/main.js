@@ -7,7 +7,7 @@ let stopInterval = false;
 
 
 //first song init
-let currSong = 0;
+let currSongId = 1;
 
 let song = new Audio(songsData[0].audioSrc);
 document.querySelector('.song-singer').innerText = songsData[0].singer;
@@ -15,7 +15,6 @@ document.querySelector('.song-name').innerText = songsData[0].name;
 document.querySelector('.audio-img').src = songsData[0].pictureSrc;
 
 CalculateAlbumDetails(songsData);
-
 //audio progress bar functions
 
 function defineProgressBarValues(){
@@ -27,6 +26,7 @@ song.addEventListener("loadedmetadata", () => {
     defineProgressBarValues();
     calculatePlayedProgressLine();
     calcTimeLeftForSong();
+
 });
 
 audioProgressBar.addEventListener('input', (event) => {
@@ -165,49 +165,48 @@ function changeAudio(songObj){
     playSongAfterChange();
     defineProgressBarValues();
     changeAlbumData(songObj);
-    currSong = songObj.id - 1;
+    currSongId = songObj.id;
 }
 
-const repetIcon = document.querySelector('.repeat');
-let isReapet = false;
+const shuffleIcon = document.querySelector('.shuffle');
+let isShuffle = false;
 
-repetIcon.addEventListener('click', () =>{
-    if(!isReapet){
-        repetIcon.style.backgroundColor = "white";
-        isReapet = true;
+shuffleIcon.addEventListener('click', () =>{
+    if(!isShuffle){
+        shuffleIcon.style.backgroundColor = "white";
+        isShuffle = true;
     }
     else{
-        repetIcon.style.backgroundColor = "transparent";
-        isReapet = false;
+        shuffleIcon.style.backgroundColor = "transparent";
+        isShuffle = false;
     }
     shuffleSongOrder();
 });
 
 function shuffleSongOrder(){
 
-    if(isReapet){
-        songsData = songsData.sort(() => Math.random() - 0.5);
+    if(isShuffle){
+        let shuffeldOrder = Array.from({length: songsData.length}, (_, i) => i + 1).sort(() => Math.random() - 0.5);
+        songsData.forEach((element, i) => {
+            element.id = shuffeldOrder[i];
+        });
+        currSongId = 0;
     }
     else{
-        songsData.sort((a, b) => (a.id > b.id) ? 1: -1)
+        let shuffeldOrder = Array.from({length: songsData.length}, (_, i) => i + 1);
+        let lastSong = songsData.find((element) => element.id == currSongId);
+        songsData.forEach((element, i) => {
+            element.id = shuffeldOrder[i];
+        });
+        currSongId = songsData.find(element => element === lastSong).id;
     }
-
 }
 
 song.onended = function() {
 
-    currSong = currSong + 1;
-
-    if(songsData[currSong] == undefined){
-        currSong = 0;
-    }
-
-    song.src = songsData[currSong].audioSrc;
-    console.log(songsData[currSong].audioSrc)
+    currSongId = currSongId + 1;
+    song.src = songsData.find((element) => element.id == currSongId).audioSrc;
     playSongAfterChange();
-    changeAlbumData(songsData[currSong]);
-    console.log(currSong + " song onended")
+    changeAlbumData(songsData.find((element) => element.id == currSongId));
+    
 };
-
-
-// console.log(shuffledArray);
