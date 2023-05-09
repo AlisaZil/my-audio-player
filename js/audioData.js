@@ -63,6 +63,85 @@ export const songsData = [
         "audioSrc":"./assets/audio/Soho Dolls Prince Harry.mp3",
         "pictureSrc":"./assets/pictures/prince-harry.png",
         "duration":"3:01"
+    },
+    {
+        "id":9,
+        "name":"Apocalyptica",
+        "singer":"Path",
+        "audioSrc":"./assets/audio/Apocalyptica - Path.mp3",
+        "pictureSrc":"./assets/pictures/Apocaliptica.png",
+        "duration":"3:05"
+    },
+    {
+        "id":10,
+        "name":"Bimbo Doll",
+        "singer":"Tila Tsoli",
+        "audioSrc":"./assets/audio/Tila Tsoli - Bimbo Doll (Lyrics).mp3",
+        "pictureSrc":"./assets/pictures/bimbo-doll.png",
+        "duration":"3:05"
+    },
+    {
+        "id":11,
+        "name":"Clavar La Espada",
+        "singer":"bleach",
+        "audioSrc":"./assets/audio/Clavar La Espada.mp3",
+        "pictureSrc":"./assets/pictures/Clavar-La-Espada.png",
+        "duration":"3:39"
+    },
+    {
+        "id":12,
+        "name":"dinky de dinky dinky type beat",
+        "singer":"cat",
+        "audioSrc":"./assets/audio/dinky de dinky dinky type beat.mp3",
+        "pictureSrc":"./assets/pictures/dinky-de-dinky-dinky.png",
+        "duration":"0:21"
+    },
+    {
+        "id":13,
+        "name":"Lilium",
+        "singer":"Elfenlied",
+        "audioSrc":"./assets/audio/Lilium (Elfenlied) - extended version - High Quality.mp3",
+        "pictureSrc":"./assets/pictures/Lilium-Elfenlied.png",
+        "duration":"5:38"
+    },
+    {
+        "id":14,
+        "name":"messages from the stars",
+        "singer":"speed up",
+        "audioSrc":"./assets/audio/messages from the stars speed up.mp3",
+        "pictureSrc":"./assets/pictures/messages-from-the-stars.png",
+        "duration":"3:59"
+    },
+    {
+        "id":15,
+        "name":"Katakuri Theme",
+        "singer":"One Piece",
+        "audioSrc":"./assets/audio/One Piece - Katakuri Theme (HQ Cover).mp3",
+        "pictureSrc":"./assets/pictures/Katakuri-theme.png",
+        "duration":"2:30"
+    },
+    {
+        "id":16,
+        "name":"Doflamingo Theme",
+        "singer":"One Piece",
+        "audioSrc":"./assets/audio/One Piece OST - Doflamingo's theme.mp3",
+        "pictureSrc":"./assets/pictures/Doflamingo-theme.png",
+        "duration":"3:13"
+    },
+    {
+        "id":17,
+        "name":"Smells Blood",
+        "singer":"Devilman Crybaby",
+        "audioSrc":"./assets/audio/Smells Blood.mp3",
+        "pictureSrc":"./assets/pictures/smells-blod.png",
+        "duration":"1:49"
+    },
+    {
+        "id":18,
+        "name":"Swan Lake",
+        "singer":"Tchaikovsky",
+        "audioSrc":"./assets/audio/Tchaikovsky - Swan Lake (Swan Theme).mp3",
+        "pictureSrc":"2:59"
     }
 ];
 

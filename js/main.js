@@ -187,7 +187,8 @@ function shuffleSongOrder(){
 
     if(isReapet){
         songsData = songsData.sort(() => Math.random() - 0.5);
-    }else{
+    }
+    else{
         songsData.sort((a, b) => (a.id > b.id) ? 1: -1)
     }
 
