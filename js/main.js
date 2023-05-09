@@ -236,7 +236,20 @@ backwardsIcon.addEventListener('click', () =>{
 });
 
 const volumeProgressBar = document.querySelector('.volume-progress-bar');
+const volumeIcon = document.querySelector('.volume');
 
 volumeProgressBar.addEventListener('input', (event) => {
-    song.volume = Math.round(event.target.value)/100;
+
+    let volume = Math.round(event.target.value)/100;
+    if(volume > 0 && volume <= 0.7){
+        volumeIcon.src = './assets/icons/volume-low-solid.svg';
+    }
+    else if(volume <= 0){
+        volumeIcon.src = './assets/icons/volume-xmark-solid.svg';
+    }
+    else {
+        volumeIcon.src = './assets/icons/volume-high-solid.svg';
+    }
+    console.log(volume);
+    song.volume = volume;
 });
