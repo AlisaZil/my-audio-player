@@ -190,7 +190,7 @@ function shuffleSongOrder(){
         songsData.forEach((element, i) => {
             element.id = shuffeldOrder[i];
         });
-        currSongId = 0;
+        currSongId = 1;
     }
     else{
         let shuffeldOrder = Array.from({length: songsData.length}, (_, i) => i + 1);
@@ -208,5 +208,29 @@ song.onended = function() {
     song.src = songsData.find((element) => element.id == currSongId).audioSrc;
     playSongAfterChange();
     changeAlbumData(songsData.find((element) => element.id == currSongId));
-    
+
 };
+
+const forwardIcon = document.querySelector('.forward');
+
+forwardIcon.addEventListener('click', () =>{
+    currSongId = currSongId + 1;
+    song.src = songsData.find((element) => element.id == currSongId).audioSrc;
+    playSongAfterChange();
+    changeAlbumData(songsData.find((element) => element.id == currSongId));
+});
+
+const backwardsIcon = document.querySelector('.backward');
+
+backwardsIcon.addEventListener('click', () =>{
+    if(currSongId == 1 ){
+        song.currentTime = 0;
+        playSongAfterChange();
+    }else{
+        currSongId = currSongId - 1;
+    song.src = songsData.find((element) => element.id == currSongId).audioSrc;
+    playSongAfterChange();
+    changeAlbumData(songsData.find((element) => element.id == currSongId));
+    }
+    
+});
