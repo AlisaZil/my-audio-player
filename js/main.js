@@ -234,3 +234,9 @@ backwardsIcon.addEventListener('click', () =>{
     }
     
 });
+
+const volumeProgressBar = document.querySelector('.volume-progress-bar');
+
+volumeProgressBar.addEventListener('input', (event) => {
+    song.volume = Math.round(event.target.value)/100;
+});

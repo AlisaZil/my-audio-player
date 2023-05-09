@@ -1,5 +1,5 @@
 html{
-    background-color: rgb(161, 187, 187);
+    background-color: rgb(52 68 68);
     font-family: calibri-regular;
 }
 
@@ -177,4 +177,14 @@ html{
     color:#d7e4e4;
     margin: 0;
     margin-left: 1vw;
+}
+.audio-volume{
+    height: 100%;
+    width: 30%;
+}
+.volume-progress-bar{
+    width: 100%;
+}
+.volume{
+    height: 60%;
 }
