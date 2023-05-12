@@ -23,7 +23,19 @@ function defineProgressBarValues(){
 }
 
 song.addEventListener("loadedmetadata", () => {
-    console.log(song.src)
+
+    let songElementsItems = [...document.getElementsByClassName('song-item')];
+
+    songElementsItems.forEach(element => {
+        if(song.src.includes(element.src.replace("./assets", ""))){
+            element.style.backgroundColor = "#202020";
+        }
+        else{
+            element.style.backgroundColor = "transparent";
+        }
+        
+    });
+
     defineProgressBarValues();
     calculatePlayedProgressLine(audioProgressBar);
     calcTimeLeftForSong();
@@ -123,6 +135,8 @@ function buildSongsList(songObj){
                document.querySelector("."+element.fatherElement +".number-"+songObj.id).appendChild(currentElement);
         }
         if(songObj.class = "song-item"){
+
+            currentElement.src = songObj.audioSrc;
             currentElement.addEventListener('click', () =>{
                 changeAudio(songObj);
             })
@@ -206,21 +220,43 @@ function shuffleSongOrder(){
         currSongId = songsData.find(element => element === lastSong).id;
     }
 }
+let isRepeat = false;
+const repeatIcon = document.querySelector('.repeat');
+
+repeatIcon.addEventListener('click', () =>{
+    isRepeat = !isRepeat;
+    isRepeat? repeatIcon.style.color = "rgb(85, 179, 94)" : repeatIcon.style.color = "white";
+})
 
 song.onended = function() {
         currSongId = currSongId + 1;
+        
+        if(currSongId - 1 !== songsData.length){
+            playSongAfterChange();
+        }
+        else{
+            currSongId = 1;
+            song.currentTime = 0;
+            playIcon.className = playIcon.className.replace('fa-pause','fa-play');
+        }
         song.src = songsData.find((element) => element.id == currSongId).audioSrc;
-        playSongAfterChange();
         changeAlbumData(songsData.find((element) => element.id == currSongId));
+        if(isRepeat){
+            playSongAfterChange();
+        }
 };
 
 const forwardIcon = document.querySelector('.forward');
 
 forwardIcon.addEventListener('click', () =>{
+    // if(currSongId - 1 !== songsData.length){
+    //     song.currentTime = song.duration;
+    // }
     currSongId = currSongId + 1;
     song.src = songsData.find((element) => element.id == currSongId).audioSrc;
     playSongAfterChange();
     changeAlbumData(songsData.find((element) => element.id == currSongId));
+    
 });
 
 const backwardsIcon = document.querySelector('.backward');
