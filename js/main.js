@@ -33,10 +33,19 @@ function addStyleToSongItemElement() {
     let songElementsItems = [...document.getElementsByClassName('song-item')];
 
     songElementsItems.forEach(element => {
-        song.src.includes(element.src.replace("./assets", ""))? 
-            element.style.backgroundColor = "#202020":
-            element.style.backgroundColor = ""
+        if(song.src.includes(element.src.replace("./assets", ""))) {
+            element.children[0].style.display = 'flex';
+            element.children[1].style.display = 'none';
+            element.style.backgroundColor = "#202020";
+        }
+        else{
+            element.children[0].style.display = 'none';
+            element.children[1].style.display = 'block';
+            element.style.backgroundColor = "";
+        }
     });
+
+
 }
 
 function calcTimeLeftForSong(){
@@ -108,7 +117,7 @@ function buildSongsList(songObj){
             currentElement.innerText = songObj[element.class.replace("song-", "")];
         }
 
-        if( element.class == "song-counter"){
+        if( element.class == "song-counter" ){
             currentElement.innerText = songObj.id;
         }
 
@@ -119,8 +128,17 @@ function buildSongsList(songObj){
         else{
                document.querySelector("."+element.fatherElement +".number-"+songObj.id).appendChild(currentElement);
         }
-        if(songObj.class = "song-item"){
 
+        if(element.class =="song-item"){
+            const audioPlayingAnimation = document.createElement('div');
+            audioPlayingAnimation.classList.add('audio-playing-animation');
+            for (let i = 0; i < 3; i++) {
+                const element = document.createElement('div');
+                element.classList.add(`bar-${i+1}`);
+                element.classList.add(`bar`);
+                audioPlayingAnimation.append(element);
+            }
+            currentElement.append(audioPlayingAnimation);
             currentElement.src = songObj.audioSrc;
             currentElement.addEventListener('click', () =>{
                 changeAudio(songObj);

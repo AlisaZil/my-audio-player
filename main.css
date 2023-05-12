@@ -65,22 +65,6 @@ html{
 .play{
     height: 55%;
 }
-/* @keyframes bigger {
-    0%{
-        height: 30%;
-    }
-    50%{
-        height: 33%;
-    }
-    100%{
-        height: 30%;
-    }
-} */
-
-/* .play:active{
-    animation-name: bigger;
-    animation-duration: 0.3s;
-} */
 
 .audio-duration{
     color: white;
@@ -245,4 +229,57 @@ i{
 .backward:active{
     color: rgb(85, 179, 94);
     transition: 0.1s;
+}
+
+.audio-playing-animation{
+    width: 2.5vw;
+    height: 3.5vh;
+    align-items: end;
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 3vw;
+}
+
+.bar{
+    background-color: white;
+    animation: up-down 1.3s ease infinite alternate;
+}
+
+.bar-1{
+    width: 25%;
+    height: 60%;
+}
+
+.bar-2{
+    width: 25%;
+    height: 30%;
+    animation-delay: -2.2s;
+}
+
+.bar-3{
+    width: 25%;
+    height: 70%;
+    animation-delay: -3.2s;
+}
+
+@keyframes up-down {
+    10% {
+        height: 30%;
+      }
+      
+      30% {
+        height: 100%;
+      }
+      
+      60% {
+        height: 50%;
+      }
+      
+      80% {
+        height: 75%;
+      }
+      
+      100% {
+        height: 60%;
+      }
 }
