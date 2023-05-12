@@ -1,13 +1,23 @@
 import { songsData, songItemElements } from './audioData.js';
 
-const playIcon = document.querySelector('.play');
-let audioProgressBar = document.querySelector('.progress-bar');
+const playControl = document.querySelector('.play');
+const volumeControl = document.querySelector('.volume');
+const shuffleControl = document.querySelector('.shuffle');
+const repeatControl = document.querySelector('.repeat');
+const forwardControl = document.querySelector('.forward');
+const backwardsControl = document.querySelector('.backward');
 
+const audioProgressBar = document.querySelector('.progress-bar');
+const volumeProgressBar = document.querySelector('.volume-progress-bar');
+
+let isShuffle = false;
+let isRepeat = false;
+let nextSong = true;
 let stopInterval = false;
-let playNextsong = true;
+
+let currSongId = 1;
 
 //first song init
-let currSongId = 1;
 
 let song = new Audio(songsData[0].audioSrc);
 document.querySelector('.song-singer').innerText = songsData[0].singer;
@@ -15,65 +25,19 @@ document.querySelector('.song-name').innerText = songsData[0].name;
 document.querySelector('.audio-img').src = songsData[0].pictureSrc;
 
 CalculateAlbumDetails(songsData);
-//audio progress bar functions
 
-function defineProgressBarValues(){
-    audioProgressBar.value = song.currentTime;
-    audioProgressBar.max = song.duration;
-}
+/* functions */
 
-song.addEventListener("loadedmetadata", () => {
+function addStyleToSongItemElement() {
 
     let songElementsItems = [...document.getElementsByClassName('song-item')];
 
     songElementsItems.forEach(element => {
-        if(song.src.includes(element.src.replace("./assets", ""))){
-            element.style.backgroundColor = "#202020";
-        }
-        else{
-            element.style.backgroundColor = "transparent";
-        }
-        
+        song.src.includes(element.src.replace("./assets", ""))? 
+            element.style.backgroundColor = "#202020":
+            element.style.backgroundColor = ""
     });
-
-    defineProgressBarValues();
-    calculatePlayedProgressLine(audioProgressBar);
-    calcTimeLeftForSong();
-    volumeProgressBar.style.background = 
-    `linear-gradient(90deg,  #55B35E ${volumeProgressBar.value}%, #4C4B4B ${volumeProgressBar.value}%)`;
-});
-
-audioProgressBar.addEventListener('input', (event) => {
-    song.currentTime = event.target.value;
-    calculatePlayedProgressLine(audioProgressBar);
-    calcTimeLeftForSong();
-});
-
-audioProgressBar.addEventListener('mousedown', () => {
-    song.pause();
-    playNextsong = false;
-});
-
-audioProgressBar.addEventListener('mouseup', () => {
-    if (playIcon.className.includes("fa-pause")) {
-      song.play();
-    }
-    playNextsong = true;
-});
-
-song.addEventListener('play', async () => {
-
-      let progressAnimation = setInterval(function () {
-  
-        audioProgressBar.value = song.currentTime;
-        calcTimeLeftForSong();
-        calculatePlayedProgressLine(audioProgressBar);
-        if (stopInterval) {
-          clearInterval(progressAnimation);
-        }
-      },10);
-
-});
+}
 
 function calcTimeLeftForSong(){
 
@@ -86,30 +50,51 @@ function calcTimeLeftForSong(){
 
 }
 
-function calculatePlayedProgressLine( progressBar ) {
-    let valPres = (progressBar.value / progressBar.max) * 100;
+function calculatePlayedProgressLine() {
+
+    let valPres = (audioProgressBar.value / audioProgressBar.max) * 100;
     valPres < 10 ? valPres = valPres + 1 : valPres;
-    progressBar.style.background = `linear-gradient(90deg,  #55B35E ${valPres}%, #4C4B4B ${valPres}%)`;
+    audioProgressBar.style.background = `linear-gradient(90deg,  #55B35E ${valPres}%, #4C4B4B ${valPres}%)`;
+
 }
 
-//audio player controls
+function calculateVolumeProgressline(){
+    volumeProgressBar.style.background = 
+    `linear-gradient(90deg,  #55B35E ${volumeProgressBar.value}%, #4C4B4B ${volumeProgressBar.value}%)`;
+}
 
-playIcon.addEventListener('click', () =>{
+function changeAlbumData(songObj){
 
-    if(playIcon.className.includes('fa-play')){
-        playIcon.className = playIcon.className.replace("fa-play","fa-pause");
-        song.play();
-        stopInterval = false;
-    }
-    else{
-        playIcon.className = playIcon.className.replace('fa-pause','fa-play');
-        song.pause();
-        stopInterval = true;
-    }
+    document.querySelector(".audio-img").src = songObj.pictureSrc;
+    document.querySelector(".song-name").innerText = songObj.name;
+    document.querySelector(".song-singer").innerText = songObj.singer;
 
-});
+}
 
-//audio list
+function CalculateAlbumDetails(songsData){
+
+    let songsDuration = 0;
+    let secondes = 0;
+    
+    songsData.forEach(element => {
+        secondes = secondes + parseInt(element.duration.split(":")[1]);
+        songsDuration = songsDuration + parseInt(element.duration.split(":")[0]);
+    });
+    
+    songsDuration = songsDuration + Math.round(secondes/60);
+
+    document.querySelector('.songs-amount').innerText = songsData.length + " songs";
+    document.querySelector('.songs-duration').innerText = songsDuration + " min " + (secondes % 60) + " sec";
+
+}
+
+function defineProgressBarValues(){
+
+    audioProgressBar.value = song.currentTime;
+    audioProgressBar.max = song.duration;
+
+}
+
 
 function buildSongsList(songObj){
 
@@ -145,34 +130,12 @@ function buildSongsList(songObj){
     });
 }
 
-songsData.forEach((element) => {
-    buildSongsList(element);
-});
-
-
-function changeAlbumData(songObj){
-    document.querySelector(".audio-img").src = songObj.pictureSrc;
-    document.querySelector(".song-name").innerText = songObj.name;
-    document.querySelector(".song-singer").innerText = songObj.singer;
-}
-
-function CalculateAlbumDetails(songsData){
-    let songsDuration = 0 ;
-    document.querySelector('.songs-amount').innerText = songsData.length + " songs";
-
-    songsData.forEach(element => {
-        songsDuration = songsDuration + parseInt(element.duration.split(":")[0]) + Math.round(element.duration.split(":")[1]/60);
-    });
-
-    document.querySelector('.songs-duration').innerText = songsDuration + " min";
-}
-
 function playSongAfterChange(){
     
     song.play();
 
-    if(playIcon.className.includes('fa-play')){
-        playIcon.className = playIcon.className.replace("fa-play","fa-pause");
+    if(playControl.className.includes('fa-play')){
+        playControl.className = playControl.className.replace("fa-play","fa-pause");
         stopInterval = false;
     }
 }
@@ -185,115 +148,159 @@ function changeAudio(songObj){
     defineProgressBarValues();
     changeAlbumData(songObj);
     currSongId = songObj.id;
+
 }
 
-const shuffleIcon = document.querySelector('.shuffle');
-let isShuffle = false;
+function shuffleSongOrder(){
 
-shuffleIcon.addEventListener('click', () =>{
+    let songOrder;
+    if(isShuffle){
+        songOrder = Array.from({length: songsData.length}, (_, i) => i + 1).sort(() => Math.random() - 0.5);
+        songsData.forEach((element, i) => {
+            element.id = songOrder[i];
+        });
+        currSongId = 1;
+    }
+    else{
+        songOrder = Array.from({length: songsData.length}, (_, i) => i + 1);
+        let lastSong = songsData.find((element) => element.id == currSongId);
+        songsData.forEach((element, i) => {
+            element.id = songOrder[i];
+        });
+        currSongId = songsData.find(element => element === lastSong).id;
+    }
+}
+
+function ChangeSong(){
+    song.src = songsData.find((element) => element.id == currSongId).audioSrc;
+    changeAlbumData(songsData.find((element) => element.id == currSongId));
+    playSongAfterChange();
+}
+
+/* EventListeners */
+
+
+song.addEventListener("loadedmetadata", () => {
+    
+    addStyleToSongItemElement();
+    defineProgressBarValues();
+    calculatePlayedProgressLine();
+    calcTimeLeftForSong();
+    calculateVolumeProgressline();
+    
+});
+
+song.addEventListener('play', async () => {
+
+      let progressAnimation = setInterval(function () {
+  
+        audioProgressBar.value = song.currentTime;
+        calcTimeLeftForSong();
+        calculatePlayedProgressLine();
+        if (stopInterval) {
+          clearInterval(progressAnimation);
+        }
+      },10);
+
+});
+
+song.onended = function() {
+
+    if(nextSong){
+        currSongId = currSongId + 1;
+        ChangeSong();
+    }
+    else{
+        song.currentTime = song.duration;
+    }
+
+};
+
+songsData.forEach((element) => {
+    buildSongsList(element);
+});
+
+
+audioProgressBar.addEventListener('input', (event) => {
+    song.currentTime = event.target.value;
+    calculatePlayedProgressLine();
+    calcTimeLeftForSong();
+});
+
+audioProgressBar.addEventListener('mousedown', () => {
+    song.pause();
+    nextSong = false;
+});
+
+audioProgressBar.addEventListener('mouseup', () => {
+    if (playControl.className.includes("fa-pause")) {
+      song.play();
+    }
+    nextSong = true;
+});
+
+volumeProgressBar.addEventListener('input', (event) => {
+
+    calculateVolumeProgressline();
+
+    let volume = Math.round(event.target.value)/100;
+    volumeControl.classList.remove(volumeControl.classList[3]);
+
+    if(volume > 0 && volume <= 0.7){
+        volumeControl.classList.add('fa-volume-low');
+    }
+    else if(volume <= 0){
+        volumeControl.classList.add('fa-volume-off');
+    }
+    else {
+        volumeControl.classList.add('fa-volume-high');
+    }
+    song.volume = volume;
+});
+
+playControl.addEventListener('click', () =>{
+
+    if(playControl.className.includes('fa-play')){
+        playControl.className = playControl.className.replace("fa-play","fa-pause");
+        song.play();
+        stopInterval = false;
+    }
+    else{
+        playControl.className = playControl.className.replace('fa-pause','fa-play');
+        song.pause();
+        stopInterval = true;
+    }
+
+});
+
+shuffleControl.addEventListener('click', () =>{
     if(!isShuffle){
-        shuffleIcon.style.color = "#55B35E";
+        shuffleControl.style.color = "#55B35E";
         isShuffle = true;
     }
     else{
-        shuffleIcon.style.color = "white";
+        shuffleControl.style.color = "white";
         isShuffle = false;
     }
     shuffleSongOrder();
 });
 
-function shuffleSongOrder(){
-
-    if(isShuffle){
-        let shuffeldOrder = Array.from({length: songsData.length}, (_, i) => i + 1).sort(() => Math.random() - 0.5);
-        songsData.forEach((element, i) => {
-            element.id = shuffeldOrder[i];
-        });
-        currSongId = 1;
-    }
-    else{
-        let shuffeldOrder = Array.from({length: songsData.length}, (_, i) => i + 1);
-        let lastSong = songsData.find((element) => element.id == currSongId);
-        songsData.forEach((element, i) => {
-            element.id = shuffeldOrder[i];
-        });
-        currSongId = songsData.find(element => element === lastSong).id;
-    }
-}
-let isRepeat = false;
-const repeatIcon = document.querySelector('.repeat');
-
-repeatIcon.addEventListener('click', () =>{
+repeatControl.addEventListener('click', () =>{
     isRepeat = !isRepeat;
-    isRepeat? repeatIcon.style.color = "rgb(85, 179, 94)" : repeatIcon.style.color = "white";
-})
+    isRepeat? repeatControl.style.color = "rgb(85, 179, 94)" : repeatControl.style.color = "white";
+});
 
-song.onended = function() {
-        currSongId = currSongId + 1;
-        
-        if(currSongId - 1 !== songsData.length){
-            playSongAfterChange();
-        }
-        else{
-            currSongId = 1;
-            song.currentTime = 0;
-            playIcon.className = playIcon.className.replace('fa-pause','fa-play');
-        }
-        song.src = songsData.find((element) => element.id == currSongId).audioSrc;
-        changeAlbumData(songsData.find((element) => element.id == currSongId));
-        if(isRepeat){
-            playSongAfterChange();
-        }
-};
-
-const forwardIcon = document.querySelector('.forward');
-
-forwardIcon.addEventListener('click', () =>{
-    // if(currSongId - 1 !== songsData.length){
-    //     song.currentTime = song.duration;
-    // }
+forwardControl.addEventListener('click', () =>{
     currSongId = currSongId + 1;
-    song.src = songsData.find((element) => element.id == currSongId).audioSrc;
-    playSongAfterChange();
-    changeAlbumData(songsData.find((element) => element.id == currSongId));
+    ChangeSong();
     
 });
 
-const backwardsIcon = document.querySelector('.backward');
-
-backwardsIcon.addEventListener('click', () =>{
+backwardsControl.addEventListener('click', () =>{
     if(currSongId == 1 ){
         song.currentTime = 0;
-        playSongAfterChange();
     }else{
         currSongId = currSongId - 1;
-    song.src = songsData.find((element) => element.id == currSongId).audioSrc;
-    playSongAfterChange();
-    changeAlbumData(songsData.find((element) => element.id == currSongId));
     }
-    
-});
-
-const volumeProgressBar = document.querySelector('.volume-progress-bar');
-const volumeIcon = document.querySelector('.volume');
-
-volumeProgressBar.addEventListener('input', (event) => {
-
-    volumeProgressBar.style.background = 
-    `linear-gradient(90deg,  #55B35E ${volumeProgressBar.value}%, #4C4B4B ${volumeProgressBar.value}%)`;
-
-    let volume = Math.round(event.target.value)/100;
-    if(volume > 0 && volume <= 0.7){
-        volumeIcon.classList.remove(volumeIcon.classList[3]);
-        volumeIcon.classList.add('fa-volume-low');
-    }
-    else if(volume <= 0){
-        volumeIcon.classList.remove(volumeIcon.classList[3]);
-        volumeIcon.classList.add('fa-volume-off');
-    }
-    else {
-        volumeIcon.classList.remove(volumeIcon.classList[3]);
-        volumeIcon.classList.add('fa-volume-high');
-    }
-    song.volume = volume;
+    ChangeSong();
 });
