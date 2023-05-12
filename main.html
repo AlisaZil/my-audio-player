@@ -2,6 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="main.css">
+        <link rel="stylesheet" href="all.css">
     </head>
     <body>
         <div class="conteinar">
@@ -29,11 +30,13 @@
             <div class="audio-player">
                 <div class="audio-controls">
                     <div class="icons">
-                        <img class="shuffle" src="./assets/icons/shuffle-solid.svg" alt="shuffle">
-                        <img class="backward" src="./assets/icons/forward-solid.svg" alt="backward">
-                        <img class="play" src="./assets/icons/play-solid.svg" alt="play">
-                        <img class="forward" src="./assets/icons/forward-solid.svg" alt="forward">
-                        <img class="repeat" src="./assets/icons/repeat-solid.svg" alt="repeat">
+
+                        <i class="fa-solid fa-shuffle shuffle fa-lg"></i>
+                        <i class="fa-solid fa-forward backward fa-lg"></i>
+                        <i class="fa-solid fa-play play fa-lg"></i>
+                        <i class="fa-solid fa-forward forward fa-lg"></i>
+                        <i class="fa-solid fa-repeat repeat fa-lg"></i>
+
                     </div>
 
                     <div class="audio-progress-bar">
@@ -43,7 +46,8 @@
                     
                 </div>
                 <div class="audio-volume">
-                    <img class="volume" src="./assets/icons/volume-low-solid.svg" alt="volume">
+
+                    <i class="fa-solid fa-lg volume fa-volume-low"></i>
                     <input class="volume-progress-bar" type="range" step="0.01"> 
                 </div>
             </div>

@@ -1,5 +1,5 @@
 html{
-    background-color: rgb(52 68 68);
+    background-color: #1F1F1F;
     font-family: calibri-regular;
 }
 
@@ -15,8 +15,7 @@ html{
 .conteinar{
     width: 75vw;
     height: 95vh;
-    background-color: rgb(255, 255, 255);
-    border-radius: 2vw;
+    background-color: #181818;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -26,14 +25,13 @@ html{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: solid white 3px;
+    box-shadow: -2px 10px 12px 0px rgb(20 20 20 / 75%)
 }
+
 .audio-player{
     width: 100%;
-    height: 15%;
-    background-color: rgb(196 223 223);
-    border-bottom-left-radius: 2vw;
-    border-bottom-right-radius: 2vw;
+    height: 10%;
+    background-color: rgb(0 0 0);
 
     display: flex;
     align-items: center;
@@ -51,11 +49,11 @@ html{
 
 .icons{
     width: 100%;
-    height: 60%;
     display: flex;
     align-items: center;
     cursor: pointer;
     justify-content: space-around;
+    margin-top: 2.5vh;
 }
 
 .audio-controls .icons img:not(.play){
@@ -83,31 +81,7 @@ html{
     animation-name: bigger;
     animation-duration: 0.3s;
 } */
-.audio-progress-bar{
-    width: 150%;
-    height: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-.progress-bar{
-    width: 100%;
-    -webkit-appearance: none;
-    height: 20%;
-    border-radius: 2vw;
-    background-color: #a3bfbf;
-    cursor: pointer;
-    outline: none;
-    transition: 0.3s;
-}
-.progress-bar::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    background-color: #ffffff;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-}
 .audio-duration{
     color: white;
     font-size: 19px;
@@ -127,10 +101,11 @@ html{
 }
 .song-item:hover{
     transition: 0.2s;
-    background-color: #a3bfbf;
+    background-color: #202020;
 }
 .song-description{
     margin-left: 3vw;
+    width: 40%;
 }
 .song-description p{
     margin: 0;
@@ -142,25 +117,24 @@ html{
     margin-left: auto;
 }
 .song-counter{
-    margin-left: 3vw;
+    margin-left: 2vw;
+    width: 5%;
+    height: 100%;
+    text-align: center;
 }
 .song-name{
     font-family: calibri-bold;
 }
 .album-description{
     width: 100%;
-    height: 30%;
-    background-color: #8ca7a7;
-    border-top-left-radius: 2vw;
-    border-top-right-radius: 2vw;
+    height: 25%;
+    background-color: #292929;
     display: flex;
     align-items: center;
 }
 .audio-img{
-    border-radius: 2vw;
     height: 80%;
-    margin-left: 1vw;
-    border: solid white 2px;
+    margin-left: 2vw;
 }
 
 .album-description .song-name{
@@ -180,11 +154,96 @@ html{
 }
 .audio-volume{
     height: 100%;
-    width: 30%;
+    width: 15%;
+    margin-right: -23vw;
+    margin-left: 13vw;
+    margin-top: 7vh;
+}
+.volume{
+    width: 21%;
 }
 .volume-progress-bar{
     width: 100%;
+    outline: none;
 }
 .volume{
     height: 60%;
+}
+
+.current-details{
+    align-self: self-end;
+    margin-bottom: 2vh;
+}
+
+.song-item p{
+    color: white;
+}
+
+i{
+    color: white;
+}
+
+.audio-volume .volume-progress-bar{
+    -webkit-appearance: none;
+    height: 5%;
+    width: 70%;
+    border-radius: 2vw;
+    background-color: #4C4B4B;
+}
+
+.audio-volume .volume-progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #ffffff;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    visibility: hidden;
+}
+
+.audio-volume .volume-progress-bar:hover::-webkit-slider-thumb{
+    visibility: visible;
+}
+
+.audio-progress-bar{
+    width: 150%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2.5vh;
+}
+
+.progress-bar{
+    width: 100%;
+    -webkit-appearance: none;
+    height: 20%;
+    border-radius: 2vw;
+    background-color: #4C4B4B;
+    cursor: pointer;
+    outline: none;
+    transition: 0.3s;
+}
+.progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #ffffff;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    visibility: hidden;
+}
+
+.progress-bar:hover::-webkit-slider-thumb{
+    visibility: visible;
+}
+
+.play{
+    width: 2%;
+}
+.forward:active{
+    color: rgb(85, 179, 94);
+    transition: 0.1s;
+}
+.backward:active{
+    color: rgb(85, 179, 94);
+    transition: 0.1s;
 }
