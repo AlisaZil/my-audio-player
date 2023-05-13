@@ -36,6 +36,8 @@ html{
     display: flex;
     align-items: center;
     justify-content: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .audio-controls{
@@ -114,10 +116,13 @@ html{
     background-color: #292929;
     display: flex;
     align-items: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .audio-img{
     height: 80%;
     margin-left: 2vw;
+    border-radius: 5px;
 }
 
 .album-description .song-name{
@@ -155,7 +160,8 @@ html{
 
 .current-details{
     align-self: self-end;
-    margin-bottom: 2vh;
+    margin-bottom: 4vh;
+    margin-left: 1vw;
 }
 
 .song-item p{
@@ -232,12 +238,13 @@ i{
 }
 
 .audio-playing-animation{
-    width: 2.5vw;
-    height: 3.5vh;
+    width: 1.5vw;
+    height: 4vh;
     align-items: end;
-    display: flex;
     justify-content: space-evenly;
-    margin-left: 3vw;
+    margin-left: 3.25vw;
+    margin-right: 1vw;
+    display: none;
 }
 
 .bar{

@@ -16,6 +16,7 @@ let nextSong = true;
 let stopInterval = false;
 
 let currSongId = 1;
+let currSelectedSongItem;
 
 //first song init
 
@@ -34,14 +35,13 @@ function addStyleToSongItemElement() {
 
     songElementsItems.forEach(element => {
         if(song.src.includes(element.src.replace("./assets", ""))) {
-            element.children[0].style.display = 'flex';
-            element.children[1].style.display = 'none';
+            currSelectedSongItem = element;
             element.style.backgroundColor = "#202020";
         }
         else{
+            element.style.backgroundColor = "";
             element.children[0].style.display = 'none';
             element.children[1].style.display = 'block';
-            element.style.backgroundColor = "";
         }
     });
 
@@ -207,22 +207,29 @@ song.addEventListener("loadedmetadata", () => {
     calculateVolumeProgressline();
     
 });
-
+let isPause = false;
 song.addEventListener('play', async () => {
-
       let progressAnimation = setInterval(function () {
-  
         audioProgressBar.value = song.currentTime;
+        if(isPause){
+            currSelectedSongItem.children[0].style.display = 'flex'
+            currSelectedSongItem.children[1].style.display = 'none'
+        
+        }else{
+            currSelectedSongItem.children[0].style.display = 'none';
+            currSelectedSongItem.children[1].style.display = 'block';
+        }
         calcTimeLeftForSong();
         calculatePlayedProgressLine();
         if (stopInterval) {
           clearInterval(progressAnimation);
         }
       },10);
+    isPause = true;
 
 });
 
-song.onended = function() {
+song.onended = async function() {
 
     if(nextSong){
         currSongId = currSongId + 1;
@@ -239,7 +246,7 @@ songsData.forEach((element) => {
 });
 
 
-audioProgressBar.addEventListener('input', (event) => {
+audioProgressBar.addEventListener('input', async (event) => {
     song.currentTime = event.target.value;
     calculatePlayedProgressLine();
     calcTimeLeftForSong();
@@ -279,14 +286,19 @@ volumeProgressBar.addEventListener('input', (event) => {
 playControl.addEventListener('click', () =>{
 
     if(playControl.className.includes('fa-play')){
+
         playControl.className = playControl.className.replace("fa-play","fa-pause");
         song.play();
         stopInterval = false;
+        isPause = true;
     }
     else{
+
         playControl.className = playControl.className.replace('fa-pause','fa-play');
+        
         song.pause();
         stopInterval = true;
+        isPause = false;
     }
 
 });
