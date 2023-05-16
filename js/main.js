@@ -29,6 +29,10 @@ CalculateAlbumDetails(songsData);
 
 /* functions */
 
+function displayNextSong(id){
+    const nextSongNameElement = document.querySelector('.next-song-name');
+    nextSongNameElement.innerHTML =`next song: ${songsData.find((element) => element.id === (id+1)).name}`;
+}
 function addStyleToSongItemElement() {
 
     let songElementsItems = [...document.getElementsByClassName('song-item')];
@@ -187,6 +191,7 @@ function shuffleSongOrder(){
         });
         currSongId = songsData.find(element => element === lastSong).id;
     }
+    displayNextSong(currSongId);
 }
 
 function ChangeSong(){
@@ -205,6 +210,7 @@ song.addEventListener("loadedmetadata", () => {
     calculatePlayedProgressLine();
     calcTimeLeftForSong();
     calculateVolumeProgressline();
+    displayNextSong(currSongId);
     
 });
 let isPause = false;

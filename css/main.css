@@ -1,15 +1,16 @@
-html{
-    background-color: #1F1F1F;
-    font-family: calibri-regular;
-}
 
 @font-face {
     font-family: calibri-regular;
-    src: url(./assets/fonts/Calibri\ Regular.ttf);
+    src: url(../assets/fonts/Calibri\ Regular.ttf);
 }
 @font-face {
     font-family: calibri-bold;
-    src: url(./assets/fonts/Calibri\ Bold.TTF);
+    src: url(../assets/fonts/Calibri\ Bold.TTF);
+}
+
+html{
+    background-color: #1F1F1F;
+    font-family: calibri-regular;
 }
 
 .conteinar{
@@ -290,3 +291,14 @@ i{
         height: 60%;
       }
 }
+                
+.next-song-name{
+    color: white;
+}
+/* .next-song{
+    width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 100%;
+    white-space: nowrap;
+} */
