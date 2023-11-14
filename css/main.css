@@ -240,7 +240,7 @@ i{
 }
 
 .audio-playing-animation{
-    width: 1.5vw;
+    width: 22px;
     height: 4vh;
     align-items: end;
     justify-content: space-evenly;
