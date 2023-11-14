@@ -1,3 +1,5 @@
 # my-audio-player
-audio player I made with JavaScript Vanilla!
-it has my favorite songs and the style is from Spotify :)
+This is a simple audio player i've made in javaScript.
+The design is heavily influenced by spotify, and the songs are random tracks I found on Youtube!
+
+# visit here
